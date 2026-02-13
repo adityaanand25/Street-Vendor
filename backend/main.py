@@ -209,6 +209,12 @@ app.add_middleware(
 )
 
 
+@app.get("/")
+async def root() -> dict[str, str]:
+	"""Default landing route so platform health checks don't 404."""
+	return {"message": "Street API is up"}
+
+
 @app.get("/health")
 async def health() -> dict[str, str]:
 	return {"status": "ok"}
