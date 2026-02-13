@@ -1,0 +1,18 @@
+# Environment secrets
+.env
+backend/.env
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Node
+node_modules/
+dist/
