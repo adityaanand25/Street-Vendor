@@ -1,7 +1,12 @@
 import axios from "axios";
 
+// Prefer explicit env override; fall back to current origin so production builds don't hit localhost.
+const apiBase =
+	import.meta.env.VITE_API_URL?.trim() ||
+	(typeof window !== "undefined" ? window.location.origin : "http://localhost:8000");
+
 const api = axios.create({
-	baseURL: import.meta.env.VITE_API_URL || "http://localhost:8000",
+	baseURL: apiBase,
 });
 
 const authHeaders = () => {
