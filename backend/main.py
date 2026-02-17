@@ -23,6 +23,7 @@ class Settings(BaseSettings):
 	api_host: str = "0.0.0.0"
 	api_port: int = 8000
 	frontend_origin: str = "http://localhost:5174"
+	frontend_origins: str = "https://street-vendor-2.onrender.com,https://hop-adds-priority-updates.trycloudflare.com"
 
 	model_config = SettingsConfigDict(
 		env_file=str(Path(__file__).resolve().parent / ".env"),
@@ -35,6 +36,18 @@ class Settings(BaseSettings):
 @lru_cache
 def get_settings() -> Settings:
 	return Settings()
+
+
+def _cors_origins(settings: Settings) -> list[str]:
+	"""Return CORS origins from comma-separated env override, plus dev defaults."""
+	origins: list[str] = []
+	if settings.frontend_origins:
+		origins.extend(origin.strip().rstrip("/") for origin in settings.frontend_origins.split(",") if origin.strip())
+	else:
+		origins.append(settings.frontend_origin.rstrip("/"))
+	# Always allow common Vite dev ports so local login does not hit CORS issues.
+	origins.extend(["http://localhost:5173", "http://localhost:5174"])
+	return sorted({origin for origin in origins if origin})
 
 
 def get_supabase_client(settings: Settings = Depends(get_settings)) -> Client:
@@ -202,7 +215,7 @@ app = FastAPI(title="FastAPI Supabase Auth")
 settings = get_settings()
 app.add_middleware(
 	CORSMiddleware,
-	allow_origins=[settings.frontend_origin],
+	allow_origins=_cors_origins(settings),
 	allow_credentials=True,
 	allow_methods=["*"],
 	allow_headers=["*"],

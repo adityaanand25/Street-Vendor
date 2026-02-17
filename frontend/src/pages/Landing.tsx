@@ -26,6 +26,12 @@ export default function Landing() {
               {t('Policies')}
             </button>
             <button
+              onClick={() => navigate('/legal')}
+              className="px-4 py-2 text-slate-700 font-medium hover:bg-slate-100 rounded-lg transition"
+            >
+              {t('Legal Submit')}
+            </button>
+            <button
               onClick={() => navigate('/login')}
               className="px-4 py-2 text-slate-700 font-medium hover:bg-slate-100 rounded-lg transition"
             >

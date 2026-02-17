@@ -3,7 +3,7 @@ import axios from "axios";
 // Prefer explicit env override; fall back to current origin so production builds don't hit localhost.
 const apiBase =
 	import.meta.env.VITE_API_URL?.trim() ||
-	(typeof window !== "undefined" ? window.location.origin : "http://localhost:8000");
+	(typeof window !== "undefined" ? window.location.origin : "https://hop-adds-priority-updates.trycloudflare.com/");
 
 const api = axios.create({
 	baseURL: apiBase,

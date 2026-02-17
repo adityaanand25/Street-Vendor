@@ -11,6 +11,7 @@ import Finance from './pages/Finance';
 import Admin from './pages/Admin';
 import Complaint from './pages/Complaint';
 import Policies from './pages/Policies';
+import Legal from './pages/Legal';
 import NotFound from './pages/NotFound';
 
 function StatusBadge() {
@@ -60,6 +61,7 @@ function App() {
         <Route path="/promotion" element={<Promotion />} />
         <Route path="/finance" element={<Finance />} />
         <Route path="/complaint" element={<Complaint />} />
+        <Route path="/legal" element={<Legal />} />
         <Route path="/policies" element={<Policies />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="*" element={<NotFound />} />
